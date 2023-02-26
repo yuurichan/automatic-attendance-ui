@@ -79,7 +79,7 @@ const Infor: React.FC<InforProps> = ({ auth, id, dispatch }) => {
     const handeSubmit = async (e: FormSubmit) => {
         e.preventDefault();
         setLoading(true)
-        if (name || avatar && auth.access_token) {
+        if ((name || avatar) && auth.access_token) {
             await dispatch(updateProfile(name as string, avatar as File, auth))
         }
 

@@ -81,10 +81,12 @@ const LessonDetail = () => {
   const [lessonDetailState, setLessonDetailState] = useState<ILessonDetail>({});
   const { auth, lessonDetail: lessonDetailStore } = useSelector((state: RootStore) => state);
 
+
   useEffect(() => {
     if (slug) {
       const getDetailLessonFunction = async () => {
         await dispatch(getDetailLesson(slug, lessonDetailStore, auth))
+        
       }
       getDetailLessonFunction();
 
@@ -100,6 +102,7 @@ const LessonDetail = () => {
 
   return (
     <div className="lesson__detail dashbroad__body dashbroad__body--xl">
+
       <Box display={'flex'} >
         {/* Seleketon loading */}
         {lessonDetailStore.loading && <Box marginBottom={'20px'} display={"flex"}>

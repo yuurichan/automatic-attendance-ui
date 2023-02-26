@@ -19,6 +19,9 @@ import { makeStyles } from '@mui/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 
+/// Loading Imports
+//import GlobalLoading from '../../components/globals/global-loading/GlobalLoading'
+
 const useStyles = makeStyles({
     Button: {
         fontSize: "1rem !important",
@@ -28,6 +31,7 @@ const useStyles = makeStyles({
 
     },
 })
+
 
 const CourseDetal = () => {
     const classes = useStyles()
@@ -42,14 +46,40 @@ const CourseDetal = () => {
     const [openDialog, setOpenDialog] = useState<boolean>(false)
     const [loadingDeleteCourse, setLoadingDeleteCourse] = useState<boolean>(false)
 
-    useEffect(() => {
+    // loading modal (purely for page loading and API initializing)
+    // const [firstLoading, setFirstLoading] = useState<boolean>(true);
+    // const wakeUpAddress = 'wake_up_call'
 
+    // API call to wake the API site up (since it tends to be disabled after a period of inactivity)
+    // const wake_up_call = async () => {
+    //     await getAPI(wakeUpAddress)
+    //     .then(
+    //         (data) => {
+    //             console.log(data.data);     // should be API is available message
+    //             setTimeout(() => {setFirstLoading(false)}, 1000);       // set Global Loading to false
+    //         }
+    //     )
+    //     .catch(
+    //         (error: any) => {
+    //             console.error(error.response);
+    //             dispatch({ type: ALERT, payload: { error: `API is not available` } })
+    //         }
+    //     );
+        
+    // }
+    // useEffect(() => {
+    //     wake_up_call();
+    // }, [])
+
+    useEffect(() => {
+        
         const getCourseDetail = async () => {
             setLoading(true)
             await dispatch(getDetailCourse(detailCourse, slug, auth))
             setLoading(false)
         }
-
+        
+        // replace GET wake_up_call with the current GET detail course here? (use then or sth)
         getCourseDetail()
         
         detailCourse.courses.forEach(course => {
@@ -82,6 +112,13 @@ const CourseDetal = () => {
 
     return (
         <div className='course-detail'>
+        {/* Added Global Page Loading (is used when waiting for API to be initialized) */}
+        {
+            // firstLoading ? 
+            // <GlobalLoading /> :
+            // <></>
+        }
+
             <div className="dashbroad__body dashbroad__body--xl">
                 <div className="course-detail__body">
                     <div className="body__control">
