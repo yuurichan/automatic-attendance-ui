@@ -136,14 +136,14 @@ const StudentFormModal: React.FC<StudentFormModalProps> = ({ open, hanldeSetOpen
                 <form className="student__form" onSubmit={handleSubmit}>
                     <div className="form__group">
                         <label htmlFor="name">Họ và tên</label>
-                        <input type="text" name="name" id="name" value={name} onChange={hanldeChange} />
+                        <input type="text" name="name" id="name" disabled={loading} value={name} onChange={hanldeChange} />
                         {
                             errorStudent?.errorName && <small className="text-error">{errorStudent?.errorName}</small>
                         }
                     </div>
                     <div className="form__group">
                         <label htmlFor="name">Mã số sinh viên</label>
-                        <input type="text" name="studentCode" id="studentCode" value={studentCode} onChange={hanldeChange} />
+                        <input type="text" name="studentCode" id="studentCode" disabled={loading} value={studentCode} onChange={hanldeChange} />
                         {
                             errorStudent?.errorStudentCode && <small className="text-error">{errorStudent?.errorStudentCode}</small>
                         }
@@ -157,21 +157,21 @@ const StudentFormModal: React.FC<StudentFormModalProps> = ({ open, hanldeSetOpen
                             onChange={hanldeChange}
                             value={gender}
                         >
-                            <FormControlLabel value="Nam"
+                            <FormControlLabel value="Nam" disabled={loading} 
                                 control={<Radio sx={{ '& .MuiSvgIcon-root': { fontSize: 20, }, }} />}
                                 label="Nam" />
 
-                            <FormControlLabel value="Nu"
+                            <FormControlLabel value="Nu" disabled={loading} 
                                 control={<Radio sx={{ '& .MuiSvgIcon-root': { fontSize: 20, }, }} />}
                                 label="Nữ" />
 
-                            <FormControlLabel value="Khac" control={<Radio sx={{ '& .MuiSvgIcon-root': { fontSize: 20, }, }} />}
+                            <FormControlLabel value="Khac" disabled={loading} control={<Radio sx={{ '& .MuiSvgIcon-root': { fontSize: 20, }, }} />}
                                 label="Khác" />
                         </RadioGroup>
                     </div>
                     <div className="form__group">
                         <label htmlFor="name">Số điện thoại</label>
-                        <input type="text" name="phone" id="phone" value={phone} onChange={hanldeChange} />
+                        <input type="text" name="phone" id="phone" value={phone} disabled={loading} onChange={hanldeChange} />
                     </div>
                     <Box display="flex" justifyContent='flex-end'>
                         <Box>

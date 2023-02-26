@@ -227,6 +227,7 @@ const LessonFormModal: React.FC<LessonFormModalProps> = ({ open, setOpen, onEdit
                             // label="Thời gian"
                             value={timeStart}
                             onChange={handleChangeTimeStart}
+                            disabled={loading}
                             renderInput={(params) => <TextField {...params} />}
                         />
                     </LocalizationProvider>
@@ -241,6 +242,7 @@ const LessonFormModal: React.FC<LessonFormModalProps> = ({ open, setOpen, onEdit
                             // label="Thời gian"
                             value={timeEnd}
                             onChange={handleChangeTimeEnd}
+                            disabled={loading}
                             renderInput={(params) => <TextField {...params} />}
                         />
                     </LocalizationProvider>
@@ -304,6 +306,7 @@ const LessonFormModal: React.FC<LessonFormModalProps> = ({ open, setOpen, onEdit
                         className={classes.Select}
                         value={weekday}
                         onChange={handleChange}
+                        disabled={loading}
                         displayEmpty
                         inputProps={{ 'aria-label': 'Without label' }}
                     >
@@ -318,7 +321,7 @@ const LessonFormModal: React.FC<LessonFormModalProps> = ({ open, setOpen, onEdit
                 </div>
                 <div className='form-group'>
                     <label htmlFor="desc">Mô tả buổi học</label>
-                    <textarea id="desc" name="desc" rows={3} cols={10} onChange={handleChange} value={desc}>   </textarea>
+                    <textarea id="desc" name="desc" rows={3} cols={10} onChange={handleChange} disabled={loading} value={desc}>   </textarea>
                 </div>
                 <div className='modal__control'>
                     <div>

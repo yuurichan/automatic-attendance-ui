@@ -164,6 +164,7 @@ const LessonCard: React.FC<LessonCardProps> = ({ auth, lesson, addStudentClass }
                         inputFormat="dd/MM/yyyy"
                         value={newDate}
                         minDate={dayjs('2022').toDate()}
+                        disabled={loading}
                         onChange={handleChangeDate}
                         renderInput={(params: any) => <TextField {...params} />}
                     />
@@ -176,6 +177,7 @@ const LessonCard: React.FC<LessonCardProps> = ({ auth, lesson, addStudentClass }
                 id="comment"
                 name="comment"
                 value={comment}
+                disabled={loading}
                 onChange={(e: InputChange) => setComment(e.target.value)}>
               </textarea>
             </Box>
