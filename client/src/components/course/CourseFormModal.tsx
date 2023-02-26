@@ -228,21 +228,21 @@ const CourseFormModal: React.FC<CourseFormModalProps> = ({ open, hanldeSetOpen, 
             <form className="course__form" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="name">Tên khoá học *</label>
-                    <input type="text" id="name" name="name" value={name} onChange={handleChange} />
+                    <input type="text" id="name" name="name" disabled={loading} value={name} onChange={handleChange} />
                     {
                         errorCourse?.errorName && <small className="text-error">{errorCourse?.errorName}</small>
                     }
                 </div>
                 <div className="form-group">
                     <label htmlFor="courseCode">Mã học phần *</label>
-                    <input type="text" id="courseCode" name="courseCode" value={courseCode?.trim()} onChange={handleChange} />
+                    <input type="text" id="courseCode" name="courseCode" disabled={loading} value={courseCode?.trim()} onChange={handleChange} />
                     {
                         errorCourse?.errorCourseCode && <small className="text-error">{errorCourse?.errorCourseCode}</small>
                     }
                 </div>
                 <div className="form-group">
                     <label htmlFor="credit">Số tín chỉ *</label>
-                    <input type="number" id="credit" name="credit" min="0" max="10" value={credit} onChange={handleChange} />
+                    <input type="number" id="credit" name="credit" disabled={loading} min="0" max="10" value={credit} onChange={handleChange} />
                 </div>
                 <div className="form-group">
                     <label htmlFor="name">Học kì *</label>
@@ -250,6 +250,7 @@ const CourseFormModal: React.FC<CourseFormModalProps> = ({ open, hanldeSetOpen, 
                         name='semester'
                         className={classes.Select}
                         value={semester}
+                        disabled={loading}
                         onChange={handleChange}
                         displayEmpty
                         inputProps={{ 'aria-label': 'Without label' }}
@@ -269,6 +270,7 @@ const CourseFormModal: React.FC<CourseFormModalProps> = ({ open, hanldeSetOpen, 
                                 minDate={dayjs('2000').toDate()}
                                 inputFormat="yyyy"
                                 value={parseInt(yearStart ? yearStart : "2000") > 2000 ? yearStart : "2000"}
+                                disabled={loading}
                                 //value={yearStart}
                                 onChange={handleChangeYearStart}
                                 renderInput={(params: any) => <TextField {...params} onKeyDown={e => e.preventDefault()} />}
@@ -283,7 +285,7 @@ const CourseFormModal: React.FC<CourseFormModalProps> = ({ open, hanldeSetOpen, 
                                 minDate={dayjs('2000').toDate()}
                                 inputFormat="yyyy"
                                 //value={yearEnd}
-                                disabled={!isYrStart}
+                                disabled={!isYrStart || loading}
                                 value={parseInt(yearEnd ? yearEnd : "2000") > parseInt(yearStart ? yearStart : "2000") ? yearEnd : yearStart}
                                 onChange={handleChangeYearEnd}
                                 renderInput={(params: any) => <TextField {...params} onKeyDown={e => e.preventDefault()} />}
@@ -293,7 +295,7 @@ const CourseFormModal: React.FC<CourseFormModalProps> = ({ open, hanldeSetOpen, 
                 </div>
                 <div className="form-group">
                     <label htmlFor="name">Mô tả môn học *</label>
-                    <textarea id='description' name="description" value={description} onChange={handleChange} rows={3} />
+                    <textarea id='description' name="description" value={description} disabled={loading} onChange={handleChange} rows={3} />
                     <span style={{ marginTop: "6px", fontSize: "1.2rem" }}>
                         {
                             course.description?.length

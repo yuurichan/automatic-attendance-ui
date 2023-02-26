@@ -123,14 +123,14 @@ const Infor: React.FC<InforProps> = ({ auth, id, dispatch }) => {
                     <span>
                         <i className='bx bx-upload'></i>
                         <p>Upload</p>
-                        <input onChange={handleChangeFile} type="file" id="file-up" accept='image/*' name='file-up' />
+                        <input onChange={handleChangeFile} type="file" id="file-up" accept='image/*' name='file-up' disabled={loading} />
                     </span>
                 </div>
             </div>
 
             <div className='form-group'>
                 <label htmlFor="name">Họ và Tên *</label>
-                <input className={errors.errorName && "danger"} type="text" id="name" name="name" value={name} onChange={handleChange} />
+                <input className={errors.errorName && "danger"} type="text" id="name" name="name" disabled={loading} value={name} onChange={handleChange} />
                 {
                     errors.errorName && <small className="error-text">{errors.errorName}</small>
                 }
@@ -151,7 +151,7 @@ const Infor: React.FC<InforProps> = ({ auth, id, dispatch }) => {
                 <label htmlFor="password">Mật khẩu mới *</label>
                 <div className="form-group__password">
                     <input className={errors.errorPassword && "danger"} type={showPassword ? "text" : "password"}
-                        id="password" name="password" value={password} onChange={handleChange} />
+                        id="password" name="password" value={password} onChange={handleChange} disabled={loading}  />
                     <span onClick={() => setShowPassword(!showPassword)} className="btn-circle">
                         {
                             showPassword ?
@@ -170,7 +170,7 @@ const Infor: React.FC<InforProps> = ({ auth, id, dispatch }) => {
                 <label htmlFor="cfPassword">Nhập lại mật khẩu mới *</label>
                 <div className="form-group__password">
                     <input className={errors.errorCfPassword && "danger"} type={showCfPassword ? "text" : "password"}
-                        id="cfPassword" name="cfPassword" value={cfPassword} onChange={handleChange} />
+                        id="cfPassword" name="cfPassword" value={cfPassword} onChange={handleChange} disabled={loading}  />
                     <span onClick={() => setShowCfPassword(!showCfPassword)} className="btn-circle">
                         {
                             showCfPassword ?
