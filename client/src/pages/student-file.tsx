@@ -7,6 +7,9 @@ import { postAPI, getAPI } from '../utils/fetchApi'
 import Logo from '../images/logo.png'
 import { Link } from 'react-router-dom'
 import "../components/auth/auth.scss"
+// Loading Imports
+import GlobalLoading from '../components/globals/global-loading/GlobalLoading'
+import Loading from '../components/globals/loading/Loading'
 
 // MUI
 import PrimaryTooltip from '../components/globals/tool-tip/Tooltip'
@@ -25,12 +28,16 @@ const StudentUpload = () => {
     const [isFile, setIsFile] = useState<boolean>(false)
     const [image, setImage] = useState<any>(null)
     const [isFinished, setFinished] = useState<boolean>(false)
-    // locking modal
+    // locking modal (as in restricting access to page)
     const [accessCode, setAccessCode] = useState<string>("")
     const [idList, setIdList] = useState<Course[]>()
     const [open, setOpen] = useState<boolean>(true)
 
     const refInput = useRef() as React.MutableRefObject<HTMLInputElement>;
+
+    // loading modal (purely for page loading and API initializing)
+    const [firstLoading, setFirstLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
 
       // Tai cac mo hinh nhan dien khuon mat da duoc train san
     useEffect(() => {
@@ -57,9 +64,20 @@ const StudentUpload = () => {
     // get/grabbing courses id for the sake of verifying things
     const loadData = async () => {
         try {
-            const res = await getAPI('get_courses_student_guest');
-            console.log(res.data.courses);
-            setIdList(res.data.courses);
+            //const res = await getAPI('get_courses_student_guest').then(
+            await getAPI('get_courses_student_guest').then(    
+                (data) => {
+                    console.log(data.data.courses);
+                    setIdList(data.data.courses);
+                }
+            );
+            setTimeout(() => {setFirstLoading(false)}, 1000);       // Moving this out seemed to have worked
+            // If getAPI returns an error, the catch clause will run instead of setFirstLoading
+
+            //console.log(res.data.courses);
+            //setIdList(res.data.courses);
+            //setTimeout(() => {setFirstLoading(false)}, 5000);
+            
             //console.log('idList: ', idList);
             // only prints out the state prior to it since it belongs to a useState
 
@@ -70,6 +88,7 @@ const StudentUpload = () => {
         }
         catch (error: any) {
             console.error(error.response);
+            dispatch({ type: ALERT, payload: { error: `API is not available` } })
         } 
     }
     useEffect(() => {
@@ -107,14 +126,17 @@ const StudentUpload = () => {
 
             dispatch({ type: ALERT, payload: { success: `Nhận diện ${user} thành công` } })
             setFinished(true);
+            setLoading(false);
         }
         else {
             dispatch({ type: ALERT, payload: { error: `Không thể xác định khuôn mặt` } })
             setFinished(true);
+            setLoading(false);
         }
     }
     const handleImageTraining = () => {
         if (loadingModel && image && studentCode) {
+            setLoading(true);
             getDesc();
             handleResetInput();
         }
@@ -133,6 +155,7 @@ const StudentUpload = () => {
 
         } catch (error: any) {
             console.log(error.response)
+            dispatch({ type: ALERT, payload: { error: `Lỗi khi gửi dữ liệu` } })
         }
     }
 
@@ -177,6 +200,13 @@ const StudentUpload = () => {
 
     return (
         <div className="student-file auth-page">
+            {/* Added Global Page Loading (is used when waiting for API to be initialized) */}
+            {
+                firstLoading ? 
+                <GlobalLoading /> :
+                <></>
+            }
+
             <div className="auth-page__form">
                 <div className="auth-page__form-wrapper">
                     <img src={Logo} alt="logo" className="auth-page__form-logo" />
@@ -187,6 +217,7 @@ const StudentUpload = () => {
                         <label id="studentLabel" htmlFor="studentCode">Mã số sinh viên *</label>
                         <input id="studentCode"
                             value={studentCode}
+                            disabled={loading}
                             onChange={(e) => setStudentCode(e.target.value)}
                             type="text" placeholder='Vui lòng nhập MSSV...' name='studentCode' />
                     </div>
@@ -195,7 +226,8 @@ const StudentUpload = () => {
                         <label id="fileLabel" htmlFor="fileInput">File hình ảnh khuôn mặt *</label>
                         <div className="auth-page__form-file">
                             <input name="fileInput" id="fileInput"
-                            ref={refInput} 
+                            ref={refInput}
+                            disabled={loading} 
                             type="file" 
                             accept="image/*" 
                             placeholder='Thêm file...'
@@ -204,7 +236,10 @@ const StudentUpload = () => {
                         </div>
                     </div>
                     <Button disabled={(studentCode && image) ? false : true} variant='contained' className="identifie__btn-open" onClick={handleImageTraining}>
-                        <p className='button-text'>Bắt đầu nhận diện</p>
+                        {loading ? 
+                            <Loading type='small'/> :
+                            <p className='button-text'>Bắt đầu nhận diện</p>
+                        }
                     </Button>
                 </div>
             </div>

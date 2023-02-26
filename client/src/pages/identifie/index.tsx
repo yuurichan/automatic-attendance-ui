@@ -3,7 +3,7 @@ import * as faceapi from 'face-api.js';
 import "./index.scss"
 import { ALERT } from '../../store/types/alertTypes'
 import { useDispatch, useSelector } from 'react-redux'
-import { postAPI } from '../../utils/fetchApi'
+import { postAPI, getAPI } from '../../utils/fetchApi'
 import { RootStore } from '../../utils/interface'
 import * as XLSX from 'xlsx'
 import { Course, Student } from '../../utils/interface'
@@ -30,6 +30,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import CircularProgress from '@mui/material/CircularProgress';
 
+/// Loading Imports
+// import GlobalLoading from '../../components/globals/global-loading/GlobalLoading'
+
 const Identifie = () => {
 
   const dispatch = useDispatch()
@@ -51,6 +54,10 @@ const Identifie = () => {
   const [isFile, setIsFile] = useState<boolean>(false)
   const [file, setFile] = useState<File>();
   const refInput = useRef() as React.MutableRefObject<HTMLInputElement>;
+
+  // loading modal (purely for page loading and API initializing)
+  // const [firstLoading, setFirstLoading] = useState<boolean>(true);
+  // const wakeUpAddress = 'wake_up_call_auth'
 
   // Dùng để chỉ đúng element (querySelector) giống js thuần nhưng vì node không có document
   // nên ta dùng cái này 
@@ -77,6 +84,26 @@ const Identifie = () => {
     }
     loadModels()
   }, [])
+
+    // API call to wake the API site up (since it tends to be disabled after a period of inactivity)
+    // const wake_up_call = async () => {
+    //   await getAPI(wakeUpAddress, auth.access_token)
+    //   .then(
+    //       () => {
+    //           setTimeout(() => {setFirstLoading(false)}, 1000);       // set Global Loading to false
+    //       }
+    //   )
+    //   .catch(
+    //       (error: any) => {
+    //           console.error(error.response);
+    //           dispatch({ type: ALERT, payload: { error: `API is not available` } })
+    //       }
+    //   );
+      
+    // }
+    // useEffect(() => {
+    //     wake_up_call();
+    // }, [])
 
   useEffect(() => {
     return () => {
@@ -381,6 +408,13 @@ const Identifie = () => {
 
   return (
     <div className="identifie">
+      {/* Added Global Page Loading (is used when waiting for API to be initialized) */}
+      {
+          // firstLoading ? 
+          // <GlobalLoading /> :
+          // <></>
+      }
+
       <div className="identifie__body">
 
         {handmade === 1 ? <div className="identifie__body-form">
