@@ -42,8 +42,8 @@
     "xlsx": "^0.18.3"
   },
   "scripts": {
-    "start": "GENERATE_SOURCEMAP=false react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -68,5 +68,6 @@
   "devDependencies": {
     "@types/react-csv": "^1.1.2",
     "@types/react-router-dom": "^5.3.2"
-  }
+  },
+  "proxy": "https://auto-attend-api.onrender.com"
 }
