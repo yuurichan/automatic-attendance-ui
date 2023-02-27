@@ -1,6 +1,6 @@
 import axios from "axios"
 const API_URL = "https://auto-attend-api.onrender.com";
-axios.defaults.withCredentials = true;
+//axios.defaults.withCredentials = true;
 
 
 export const getAPI = async (url: string, token?: any) => {
