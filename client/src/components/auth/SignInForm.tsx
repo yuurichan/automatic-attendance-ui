@@ -60,7 +60,8 @@ const SignInForm = () => {
         if (Object.keys(errors).length === 0) {
             try {
                 setLoading(true)
-                console.log(user);
+                //console.log(user);
+                console.log('Logged in');
                 // things revolves around postApi
                 const res = await postAPI('login', user);
                 dispatch({ type: ALERT, payload: { success: res.data.msg } })
