@@ -67,7 +67,8 @@ const StudentUpload = () => {
             //const res = await getAPI('get_courses_student_guest').then(
             await getAPI('get_courses_student_guest').then(    
                 (data) => {
-                    console.log(data.data.courses);
+                    console.log('Courses Length: ', data.data.courses.length);
+                    console.log('Courses obtained');
                     setIdList(data.data.courses);
                 }
             );

@@ -81,7 +81,8 @@ const SignUpForm = () => {
             try {
                 const res = await postAPI('register', user);
                 setLoading(false)
-                console.log(res)
+                //console.log(res)
+                console.log('User Registered')
                 setUser(initalState)
                 dispatch({ type: ALERT, payload: { success: res.data.msg } })
             } catch (error: any) {
