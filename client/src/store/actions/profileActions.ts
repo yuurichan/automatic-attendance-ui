@@ -32,7 +32,7 @@ export const updateProfile = (name: string, file: File, auth: AuthPayload) => as
         let avatar: string = ""
         if (file) {
             const photo = await uploadImage(file);
-            avatar = photo.url;
+            avatar = photo.secure_url;
         }
 
         const res = await putAPI('update_user', {
