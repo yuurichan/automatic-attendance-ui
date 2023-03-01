@@ -31,7 +31,7 @@ export const uploadImage = async (file: File) => {
             "Content-type":"multipart/form-data",
             //"Access-Control-Allow-Credentials": "true"
         },
-        withCredentials: true
+        withCredentials: false
     })
     
     const photo = res.data;
