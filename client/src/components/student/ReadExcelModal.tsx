@@ -115,6 +115,7 @@ const ReadExcelModal: React.FC<ReadExcelModalProps> = ({ handleSetStudent }) => 
                                             return _item.toLowerCase() === "ho va ten"
                                                 || _item.toLowerCase() === 'hovaten'
                                                 || nonAccentVietnamese(_item.toLowerCase()) === 'ten sinh vien'
+                                                || nonAccentVietnamese(_item.toLowerCase()) === 'ho va ten'
                                         }
                                     })
                                 }
