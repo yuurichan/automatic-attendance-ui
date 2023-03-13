@@ -107,7 +107,7 @@ const ExportReportStudent: React.FC<ExportReportStudentProps> = ({ studentReport
 
     const data = transfromData(studentReport, lessonDetail);
 
-    return <PrimaryTooltip title="Tạo khoá học">
+    return <PrimaryTooltip title="Xuất file thống kê">
         <Button type="submit" variant='contained' className={classes.Button}>
             <CSVLink target="_blank" data={data} download={`${lessonDetail.lesson?.course?.name}_${lessonDetail.lesson?.course?.courseCode}_${dayjs(lessonDetail.lesson?.createdAt).format("DD-MM-YYYY")}.csv`}>
                 <i style={{ fontSize: "1.8rem", marginRight: "5px", marginTop: "2px" }} className='bx bxs-file-export'></i>Xuất File

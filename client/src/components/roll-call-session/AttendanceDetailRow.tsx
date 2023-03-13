@@ -72,6 +72,7 @@ const AttendanceDetailRow: React.FC<AttendanceDetailRowProps> = ({ attendance, d
             const newAttendanceDetails = detailRollCallSession.attendanceDetails?.map((_attendanceDetail) => {
                 return _attendanceDetail._id === attendance._id ? { ...attendance, absent: !attendance.absent } : _attendanceDetail
             })
+            //console.log(newAttendanceDetails);
 
             dispatch(updateAttendanceDetail({ ...detailRollCallSession, attendanceDetails: newAttendanceDetails }, auth, detailRollCallSessionStore, lessonDetail))
 
