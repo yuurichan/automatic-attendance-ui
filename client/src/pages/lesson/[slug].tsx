@@ -22,6 +22,13 @@ import { makeStyles } from '@mui/styles';
 import PrimaryTooltip from '../../components/globals/tool-tip/Tooltip'
 import Button from "@mui/material/Button"
 import Skeleton from '@mui/material/Skeleton';
+// Added extra buttons for rollcallSession deletion
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+
+import Loading from '../../components/globals/loading/Loading'
+
+import { deleteRollCallSession } from '../../store/actions/rollCallSession' 
 
 const useStyles = makeStyles({
   TableContainer: {
@@ -56,6 +63,9 @@ const useStyles = makeStyles({
   Button: {
     minWidth: "100px !important"
   },
+  DelButton: {
+    minWidth: "50px !important"
+  },
 
   // Sekeleton
   SkeletonTop: {
@@ -80,7 +90,43 @@ const LessonDetail = () => {
   const dispatch = useDispatch();
   const [lessonDetailState, setLessonDetailState] = useState<ILessonDetail>({});
   const { auth, lessonDetail: lessonDetailStore } = useSelector((state: RootStore) => state);
+  // Delete rollcallSes modal
+  const [loadingDeleteCourse, setLoadingDeleteCourse] = useState<string>('');
+  //const [open, setOpen] = useState<boolean>(false);
+  const [openDialog, setOpenDialog] = useState<any>({});
 
+  // Delete rollcallSes funcs
+  const handleDeleteRollCallSession = async (rollcallSession_id: string) => {
+    setLoadingDeleteCourse(rollcallSession_id);
+    await dispatch(deleteRollCallSession(rollcallSession_id, auth, lessonDetailStore, slug))
+    setLoadingDeleteCourse("")
+
+    //await dispatch(getDetailLesson(slug, lessonDetailStore, auth))
+
+    handleCloseDialog(rollcallSession_id);
+  }
+
+  const handleClickOpenDialog = (rollcallSession_id: string) => {
+      setOpenDialog({
+          [`setOpen-${rollcallSession_id}`]: true
+      });
+
+  };
+
+  const handleCloseDialog = (rollcallSession_id: string) => {
+      setOpenDialog({
+          [`setOpen-${rollcallSession_id}`]: false
+      });
+  };
+  //
+
+  // Remove when done
+  // const testFunc = () => {
+  //   console.log('button');
+  // }
+  // const testFunc2 = (str: string) => {
+  //   console.log(str);
+  // }
 
   useEffect(() => {
     if (slug) {
@@ -96,6 +142,7 @@ const LessonDetail = () => {
         }
       })
 
+      console.log('useEff called');
     }
   }, [auth, slug, lessonDetailStore.lessons])
 
@@ -367,13 +414,44 @@ const LessonDetail = () => {
                           </TableCell>
                           <TableCell align="center">
                             {
-                              lessonDetailState.lesson?.teacher?._id === auth.user?._id && <PrimaryTooltip title="Xem chi tiết" placement="right-start">
-                                <Link style={{ textDecoration: "none" }} to={`/roll-call-session/${rollCallsessDetail._id}`}>
-                                  <Button className={classes.Button} color="primary" variant='contained'>
-                                    <p style={{ fontSize: "1.3rem", textTransform: "initial" }}>Chi tiết</p>
-                                  </Button>
-                                </Link>
-                              </PrimaryTooltip>
+                              (lessonDetailState.lesson?.teacher?._id === auth.user?._id) && 
+                              <React.Fragment>
+                                <PrimaryTooltip title="Xem chi tiết" placement="bottom">
+                                  <Link style={{ textDecoration: "none" }} to={`/roll-call-session/${rollCallsessDetail._id}`}>
+                                    <Button className={classes.Button} color="primary" variant='contained'>
+                                      <p style={{ fontSize: "1.3rem", textTransform: "initial" }}>Chi tiết</p>
+                                    </Button>
+                                  </Link>
+                                </PrimaryTooltip>
+                                <PrimaryTooltip title="Xóa" placement="bottom">
+                                  <Button onClick={() => {handleClickOpenDialog(rollCallsessDetail?._id as string)}} className={classes.DelButton} color="error">  <i style={{ fontSize: "2rem" }} className='bx bx-x'></i></Button>
+                                </PrimaryTooltip>
+                                {/* Dialog confirm delete rollcall session */}
+                                <Dialog
+                                    open={openDialog ? openDialog[`setOpen-${rollCallsessDetail._id as string}`] ? openDialog[`setOpen-${rollCallsessDetail._id as string}`] : false : false}
+                                    onClose={handleCloseDialog}
+                                    aria-labelledby="alert-dialog-title"
+                                    aria-describedby="alert-dialog-description"
+                                >
+                                    <h3 className='modal__heading' style={{ margin: "16px" }}>
+                                        Bạn có chắc muốn xoá môn học này!
+                                    </h3>
+                                    <DialogActions>
+                                        <Button onClick={() => handleCloseDialog(rollCallsessDetail._id as string)} color='error'>
+                                            <p style={{ textTransform: "capitalize", fontSize: '1.3rem' }}>
+                                                Huỷ xoá
+                                            </p>
+                                        </Button>
+                                        <Button onClick={() => handleDeleteRollCallSession(rollCallsessDetail._id as string)} className={classes.Button}>
+                                            {loadingDeleteCourse === rollCallsessDetail._id ? <><Loading type='small' /> <p style={{ textTransform: "initial", marginLeft: "10px" }}></p></> :
+                                                <p style={{ textTransform: "capitalize", fontSize: '1.3rem' }}>
+                                                    Đồng ý
+                                                </p>}
+
+                                        </Button>
+                                    </DialogActions>
+                                </Dialog>
+                              </React.Fragment>
                             }
                           </TableCell>
                         </TableRow>

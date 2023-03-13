@@ -9,7 +9,7 @@ import { LessonDetailPayload, LessonDetailTypes, UPDATE_LESSON_DETAIL } from '..
 import { AuthPayload } from '../../store/types/authTypes'
 import { ALERT, AlertType } from '../../store/types/alertTypes'
 import { RollCallSession, Lesson } from '../../utils/interface'
-import { getAPI, postAPI, putAPI } from '../../utils/fetchApi'
+import { getAPI, postAPI, putAPI, deleteAPI } from '../../utils/fetchApi'
 
 export const createRollCallSession = (data: any, auth: AuthPayload, history: any, lessonDetail: LessonDetailPayload, lesson: Lesson) =>
     async (dispatch: Dispatch<RollCallSessionType | AlertType | LessonDetailTypes>) => {
@@ -47,6 +47,42 @@ export const createRollCallSession = (data: any, auth: AuthPayload, history: any
             history.push(`/roll-call-session/${res.data.newRollCallSession._id}`)
         } catch (error: any) {
             dispatch({ type: ALERT, payload: { error: error.response.data.msg } })
+        }
+    }
+
+export const deleteRollCallSession = (rollCallSession_id: string, auth: AuthPayload, lessonDetail: LessonDetailPayload, lesson_id: string) =>
+    async (dispatch: Dispatch<RollCallSessionType | AlertType | LessonDetailTypes>) => {
+        if (!auth.access_token && !auth.user) return;
+        try {
+            const res = await deleteAPI(`roll_call_session/${rollCallSession_id}`, auth.access_token);
+            dispatch({ type: types.DELETE_ROLL_CALL_SESSION, payload: {rollCallSession_id}});
+            dispatch({ type: ALERT, payload: { success: res.data.msg } });
+            // Lọc bỏ rollcallSession vừa xóa khỏi lessonDetail đơn lẻ trên trang (ta truyền vào lessonDetailPayload
+            // và lọc và lấy lessonDetail đơn lẻ mà ta cần cập nhật)
+            // Ta truyền vào biến lessonDetailPayload cho nó cập nhật thẳng vào RootState 
+            // thay vì ta cập nhật lessonDetailState (chỉ tồn tại trong trang)
+            lessonDetail.lessons?.forEach((lsDetail) => {
+                if (lsDetail.lesson?._id === lesson_id) {
+                    console.log('be4 filter: ', lsDetail.rollCallSessions);
+
+                    dispatch({
+                        type: UPDATE_LESSON_DETAIL, payload: {
+                            lessonDetail: {
+                                ...lsDetail,    // lsDetail đang xét
+                                // Lọc bỏ rcSession trong lsDetail có id === rcSession vừa được xóa
+                                rollCallSessions: lsDetail.rollCallSessions?.filter((rcSession) => {
+                                    return rcSession._id !== rollCallSession_id
+                                })
+                            }
+                        }
+                    })
+
+                    console.log('after filter: ', lsDetail.rollCallSessions);
+                }
+            })
+            
+        } catch (error: any) {
+            return dispatch({ type: ALERT, payload: { error: error.response.data.msg } })
         }
     }
 

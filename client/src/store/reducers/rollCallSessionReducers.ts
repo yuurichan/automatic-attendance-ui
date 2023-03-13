@@ -18,7 +18,17 @@ const rollCallSessionReducer = (state: RollCallSessionPayload = initialState, ac
                 ...state,
             }
         }
-    
+        case types.DELETE_ROLL_CALL_SESSION: {
+            console.log('This is called: ', action.payload.rollCallSession_id)
+            console.log('Current rcSes state (before filtering): ', state.rollCallSessions)
+            return {
+                ...state,
+                rollCallSessions: state.rollCallSessions?.filter((rcSession) => {
+                    return rcSession._id !== action.payload.rollCallSession_id
+                })
+                // Essentially removing the deleted rcSes from the rcSes array
+            }
+        }
         default:
             return {
                 ...state
