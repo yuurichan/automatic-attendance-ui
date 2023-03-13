@@ -98,7 +98,7 @@ const ReportStudentModel: React.FC<ReportStudentModelProps> = ({ lessonDetail })
     return (
         <div className="lesson-report">
             <div className="lesson-report__button">
-                <PrimaryTooltip style={{ marginLeft: "15px" }} title="Tạo khoá học">
+                <PrimaryTooltip style={{ marginLeft: "15px" }} title="Thống kê theo sinh viên">
                     <Button onClick={handleOpen} variant='contained' className={classes.Button}>
                         <i style={{ fontSize: "1.8rem", marginRight: "5px", marginTop: "-2px" }} className='bx bxs-contact'></i>Thống kê sinh viên
                     </Button>

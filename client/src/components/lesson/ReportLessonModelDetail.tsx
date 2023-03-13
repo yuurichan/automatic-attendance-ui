@@ -112,7 +112,7 @@ const ReportLessonModelDetails: React.FC<ReportLessonDetailModelProps> = ({ less
 
     return <div className="lesson-report__detail">
         <div className="lesson-report__button" >
-            <PrimaryTooltip title="Tạo khoá học">
+            <PrimaryTooltip title="Chi tiết các buổi điểm danh">
                 <Button onClick={handleOpen} type="submit" variant='contained' className={classes.Button}>
                     <i style={{ fontSize: "1.8rem", marginRight: "5px", marginTop: "-2px" }} className='bx bx-line-chart'></i>Chi tiết
                 </Button>

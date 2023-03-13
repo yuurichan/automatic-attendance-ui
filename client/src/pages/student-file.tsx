@@ -39,6 +39,16 @@ const StudentUpload = () => {
     const [firstLoading, setFirstLoading] = useState<boolean>(true);
     const [loading, setLoading] = useState<boolean>(false);
 
+    // zoom test
+    // useEffect(() => {
+    //     document.body.style.transform = 'scale(.75)';
+
+    //     return () => {
+    //         // Return things to normal when this page is unmounted
+    //         document.body.style.transform = 'scale(1)';
+    //     }
+    // }, [])
+
       // Tai cac mo hinh nhan dien khuon mat da duoc train san
     useEffect(() => {
         const loadModels = async () => {
@@ -233,7 +243,7 @@ const StudentUpload = () => {
                             accept="image/*" 
                             placeholder='Thêm file...'
                             onChange={onImageChange} />
-                            <img width={320} src={image} alt="Image Preview" />
+                            <img width={240} src={image} alt="Image Preview" />
                         </div>
                     </div>
                     <Button disabled={(studentCode && image) ? false : true} variant='contained' className="identifie__btn-open" onClick={handleImageTraining}>

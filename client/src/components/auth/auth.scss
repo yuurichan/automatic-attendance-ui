@@ -66,6 +66,9 @@
             width: 100%;
             flex-direction: column;
             margin-bottom: 10px;
+            // & img {
+            //     width: 240px;
+            // }
             & label {
                 @include labelStyle;
             }

@@ -294,7 +294,7 @@ const CourseFormModal: React.FC<CourseFormModalProps> = ({ open, hanldeSetOpen, 
                     </div>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="name">Mô tả môn học *</label>
+                    <label htmlFor="name">Mô tả môn học</label>
                     <textarea id='description' name="description" value={description} disabled={loading} onChange={handleChange} rows={3} />
                     <span style={{ marginTop: "6px", fontSize: "1.2rem" }}>
                         {
