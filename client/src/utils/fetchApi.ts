@@ -1,5 +1,5 @@
 import axios from "axios"
-const API_URL = "https://auto-attend-api.onrender.com";
+const API_URL = "https://auto-attend.onrender.com";
 axios.defaults.withCredentials = true;
 //FIX: https://stackoverflow.com/questions/42803394/cors-credentials-mode-is-include
 
