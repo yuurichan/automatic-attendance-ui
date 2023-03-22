@@ -434,7 +434,7 @@ const LessonDetail = () => {
                                     aria-describedby="alert-dialog-description"
                                 >
                                     <h3 className='modal__heading' style={{ margin: "16px" }}>
-                                        Bạn có chắc muốn xoá môn học này!
+                                        Bạn có chắc muốn xoá buổi điểm danh này!
                                     </h3>
                                     <DialogActions>
                                         <Button onClick={() => handleCloseDialog(rollCallsessDetail._id as string)} color='error'>
