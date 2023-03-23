@@ -13,7 +13,7 @@ const Teacher = () => {
             <table>
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>STT</th>
                         <th>Tên</th>
                         <th>Email</th>
                         <th>Ngày Tạo</th>
@@ -31,7 +31,7 @@ const Teacher = () => {
                         :
                         <tbody>
                             {teacher.teachers?.map((teacher, index) => {
-                                return <TeacherRow teacher={teacher} key={index} />
+                                return <TeacherRow teacher={teacher} ord_idx={(index + 1).toString()} key={index} />
                             })}
                         </tbody>
                 }

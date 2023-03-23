@@ -7,10 +7,11 @@ import { confirmTeacher } from '../../../store/actions/teacherActions'
 import Loading from '../../globals/loading/Loading'
 
 interface TeacherRowProps {
-  teacher: User
+  teacher: User,
+  ord_idx: string
 }
 
-const TeacherRow: React.FC<TeacherRowProps> = ({ teacher }) => {
+const TeacherRow: React.FC<TeacherRowProps> = ({ teacher, ord_idx }) => {
 
   const { auth } = useSelector((state: RootStore) => state)
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const TeacherRow: React.FC<TeacherRowProps> = ({ teacher }) => {
   }
 
   return <tr>
-    <td className="teacher__tabel-id">{teacher._id}</td>
+    <td className="teacher__tabel-stt">{ord_idx}</td>
     <td className="teacher__tabel-name">{teacher.name}</td>
     <td className="teacher__tabel-account">{teacher.account}</td>
     <td className="teacher__tabel-created-at">{dayjs(teacher.createdAt).format('DD/MM/YYYY')} </td>
