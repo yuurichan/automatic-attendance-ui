@@ -19,3 +19,24 @@
         }
     }
 }
+
+@media only screen and (max-height: 500px) {
+    .modal-student {
+        .MuiBox-root.css-xqly9z {
+            height: 95%;
+            overflow-y: scroll;
+        }
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px #f8fbff;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: $color-primary;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar {
+            width: 0.5em;
+            border-radius: 5px;
+        }
+    }
+}
