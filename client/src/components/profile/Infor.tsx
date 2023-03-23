@@ -16,7 +16,7 @@ interface InforProps {
 const Infor: React.FC<InforProps> = ({ auth, id, dispatch }) => {
 
     const initalState: UserProfile = {
-        name: "",
+        name: auth.user ? auth.user.name : "",      // để sẵn tên người dùng vào input, chỉ khi có thay đổi thì mới cho phép cập nhật
         password: "",
         cfPassword: "",
         avatar: ""
@@ -48,6 +48,7 @@ const Infor: React.FC<InforProps> = ({ auth, id, dispatch }) => {
             ...user,
             [name]: value
         })
+        console.log(target.name, ' - ' ,target.value);
 
         if (name === "name") {
             setErrors({
@@ -186,7 +187,7 @@ const Infor: React.FC<InforProps> = ({ auth, id, dispatch }) => {
                     (!errors.errorCfPassword && errors.errorPasswordMatch) && <small className="error-text">{errors.errorPasswordMatch}</small>
                 }
             </div>
-            <button className={(!password && !name && !avatar) ? "btn-primary btn-primary--disable" : "btn-primary"} disabled={(!password && !name && !avatar) ? true : false}>{
+            <button className={(!password && (!name || (name.trim() === auth.user?.name?.trim())) && !avatar) ? "btn-primary btn-primary--disable" : "btn-primary"} disabled={(!password && !name && !avatar) ? true : false}>{
                 loading ? <Loading type='small' /> : "Cập nhật"
             }</button>
         </form >

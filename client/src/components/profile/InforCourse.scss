@@ -80,6 +80,7 @@
 
     &-control {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
         padding: 16px;
@@ -131,18 +132,13 @@
             margin-top: 20px;
             padding-left: 0px !important;
         }
+        // &-control {
+        //     margin-top: 20px;
+        //     margin-left: 0px;
+        // }
         &-control {
             margin-top: 20px;
             margin-left: 0px;
-        }
-    }
-    @include MediaQuery(SM) {
-        &-list {
-            &-item {
-                width: calc(100% - 20px);
-            }
-        }
-        &-control {
             flex-direction: column;
             &-search {
                 width: 100%;
@@ -155,6 +151,55 @@
                     }
                 }
             }
+            // &-add {
+            //     display: flex;
+            //     justify-content: center;
+            // }
+        }
+    }
+    @include MediaQuery(SM) {
+        &-list {
+            &-item {
+                width: calc(100% - 20px);
+            }
+        }
+        &-control {
+            flex-direction: column;
+            &-search {
+                width: 100%;        // this one solved most problems
+                & form {
+                    width: 100%;
+                    flex-direction: column;
+                    & .form-group {
+                        margin-bottom: 20px;
+                        width: 100%;
+                    }
+                }
+            }
+            // &-add {
+            //     display: flex;
+            //     justify-content: center;
+            // }
+        }
+    }
+    @include MediaQuery(XXL) {
+        &-control {
+            &-search {
+                width: 100%;        // this one solved most problems
+                & form {
+                    align-items: center;
+                    justify-content: space-between;
+                    & .form-group {
+                        margin: 0;
+                    }
+                }
+            }
+            &-add {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                margin-top: 5px;
+            }
         }
     }
 }
@@ -162,3 +207,11 @@
 .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper {
     box-shadow: $box-shadow-1 !important;
 }
+
+// @media screen and (max-width: 1366px) {
+//     .profile__course {
+//         &-control {
+
+//         }
+//     }
+// }

@@ -45,5 +45,17 @@
         @media only screen and (max-width: $XL) {
             @content;
         }
+    } @else if $canvas == XXL {
+        @media only screen and (max-width: $XXL) {
+            @content;
+        }
+    } @else if $canvas == X-XL {
+        @media only screen and (max-width: $XXL) {
+            @content;
+        }
+    } @else if $canvas == H-XXL {
+        @media only screen and (max-height: $H-XXL) {
+            @content;
+        }
     }
 }

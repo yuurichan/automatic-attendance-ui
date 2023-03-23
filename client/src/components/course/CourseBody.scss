@@ -93,4 +93,16 @@
             }
         }
     }
+    @include MediaQuery(X-XL) {
+        & .course__control {
+            & form {
+                flex-wrap: wrap;
+                // & .form-group {
+                //     & input {
+                //         font-size: 1.2rem !important;
+                //     }
+                // }
+            }
+        }
+    }
 }
