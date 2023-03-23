@@ -121,6 +121,7 @@ const StudentFormModal: React.FC<StudentFormModalProps> = ({ open, hanldeSetOpen
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
+            className="modal-student"
         >
             <Box sx={modelStyle}>
                 <Box display="flex" alignItems='center' justifyContent="space-between" mb={2}>

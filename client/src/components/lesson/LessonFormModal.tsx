@@ -207,6 +207,7 @@ const LessonFormModal: React.FC<LessonFormModalProps> = ({ open, setOpen, onEdit
         onClose={handleCloseModal}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        className="modal-lesson"
     >
         <Box sx={modelStyleWidth800}>
             <Box display='flex' justifyContent="space-between" alignItems='center' mb={2}>

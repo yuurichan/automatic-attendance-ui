@@ -109,6 +109,7 @@ const ReportStudentModel: React.FC<ReportStudentModelProps> = ({ lessonDetail })
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
+                className="modal-student-details"
             >
                 <Box sx={modelStyleWidth800}>
                     <Box display='flex' justifyContent="space-between" alignItems='center' mb={2}>

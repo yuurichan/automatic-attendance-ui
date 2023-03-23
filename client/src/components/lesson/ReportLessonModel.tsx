@@ -80,6 +80,7 @@ const ReportLessonModel: React.FC<ReportLessonModelProps> = ({ lessonDetail }) =
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
+                className="modal-lesson-details"
             >
                 <Box sx={modelStyleWidth800}>
                     <Box display='flex' justifyContent="space-between" alignItems='center' mb={2}>

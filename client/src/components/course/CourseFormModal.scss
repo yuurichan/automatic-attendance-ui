@@ -49,4 +49,24 @@
             }
         }
     }
+    @include MediaQuery(H-XXL) {
+        &-modal {          
+            .MuiBox-root.css-xqly9z {
+                height: 90%;
+                overflow-y: scroll;
+            }
+            ::-webkit-scrollbar-track {
+                box-shadow: inset 0 0 6px #f8fbff;
+                border-radius: 5px;
+            }
+            ::-webkit-scrollbar-thumb {
+                background-color: $color-primary;
+                border-radius: 5px;
+            }
+            ::-webkit-scrollbar {
+                width: 0.5em;
+                border-radius: 5px;
+            }
+        }
+    }
 }
