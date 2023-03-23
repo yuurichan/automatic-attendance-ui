@@ -223,27 +223,28 @@ const StudentUpload = () => {
                     <img src={Logo} alt="logo" className="auth-page__form-logo" />
                     <h2 className="auth-page__form-title">Thêm Dữ Liệu</h2>
                     <p className="auth-page__form-detail"><Link to='..'>Quay lại</Link></p>
+                    <div className='image-input-form'>
+                        <div className='form-group'>
+                            <label id="studentLabel" htmlFor="studentCode">Mã số sinh viên *</label>
+                            <input id="studentCode"
+                                value={studentCode}
+                                disabled={loading}
+                                onChange={(e) => setStudentCode(e.target.value)}
+                                type="text" placeholder='Vui lòng nhập MSSV...' name='studentCode' />
+                        </div>
 
-                    <div className='form-group'>
-                        <label id="studentLabel" htmlFor="studentCode">Mã số sinh viên *</label>
-                        <input id="studentCode"
-                            value={studentCode}
-                            disabled={loading}
-                            onChange={(e) => setStudentCode(e.target.value)}
-                            type="text" placeholder='Vui lòng nhập MSSV...' name='studentCode' />
-                    </div>
-
-                    <div className='form-group'>
-                        <label id="fileLabel" htmlFor="fileInput">File hình ảnh khuôn mặt *</label>
-                        <div className="auth-page__form-file">
-                            <input name="fileInput" id="fileInput"
-                            ref={refInput}
-                            disabled={loading} 
-                            type="file" 
-                            accept="image/*" 
-                            placeholder='Thêm file...'
-                            onChange={onImageChange} />
-                            <img width={240} src={image} alt="Image Preview" />
+                        <div className='form-group'>
+                            <label id="fileLabel" htmlFor="fileInput">File hình ảnh khuôn mặt *</label>
+                            <div className="auth-page__form-file">
+                                <input name="fileInput" id="fileInput"
+                                ref={refInput}
+                                disabled={loading} 
+                                type="file" 
+                                accept="image/*" 
+                                placeholder='Thêm file...'
+                                onChange={onImageChange} />
+                                <img width={320} src={image} alt="Image Preview" />
+                            </div>
                         </div>
                     </div>
                     <Button disabled={(studentCode && image) ? false : true} variant='contained' className="identifie__btn-open" onClick={handleImageTraining}>
