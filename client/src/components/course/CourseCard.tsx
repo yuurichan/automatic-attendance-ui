@@ -46,6 +46,10 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, auth, loading }) => {
                                 <span>Năm kết thúc</span>
                                 <p> {dayjs(course.yearEnd).format("YYYY")} </p>
                             </div>
+                            <div className='header__infor-row'>
+                                <span>Mã cung cấp</span>
+                                <p> {course._id} </p>
+                            </div>
                             {/* <div className='header__infor-row'>
                                 <span>Ngày tạo</span>
                                 <p> {dayjs(course.createdAt).format("DD - MM - YYYY")} </p>

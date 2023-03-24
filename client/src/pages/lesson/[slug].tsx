@@ -80,6 +80,10 @@ const useStyles = makeStyles({
   },
   classNameInforRowRight: {
     marginRight: "auto"
+  },
+
+  classNameInfoCourseID: {
+    overflowWrap: "break-word"
   }
 });
 
@@ -332,6 +336,23 @@ const LessonDetail = () => {
                   {lessonDetailStore.loading ? <> <Skeleton className={classes.classNameInforRowRight} variant="text" width={70} height={25} animation='wave' /></> :
                     <>
                       {dayjs(lessonDetailState?.lesson?.course?.yearEnd).format('YYYY')}
+                    </>
+                  }
+                </span>
+              </div>
+              <div className="infor__row">
+
+                <span className="infor__row-left">
+                  {lessonDetailStore.loading ? <> <Skeleton className={classes.classNameInforRowLeft} variant="text" width={110} height={25} animation='wave' /></> :
+                    <>
+                      Mã cung cấp 
+                    </>
+                  }
+                </span>
+                <span className={"infor__row-right"}>
+                  {lessonDetailStore.loading ? <> <Skeleton className={classes.classNameInforRowRight} variant="text" width={70} height={25} animation='wave' /></> :
+                    <>
+                      {lessonDetailState.lesson?.course?._id}
                     </>
                   }
                 </span>
