@@ -57,12 +57,12 @@
             display: flex;
             align-items: center;
             color: $color-white;
-            &-logo {
-                & img {
-                    width: 100px;
-                    border-radius: 50%;
-                }
-            }
+            // &-logo {
+            //     & img {
+            //         width: 100px;
+            //         border-radius: 50%;
+            //     }
+            // }
             &-indicator {
                 height: 100%;
                 width: 1px;
@@ -75,7 +75,8 @@
                 align-items: center;
                 width: 100%;
                 & img {
-                    width: 50px;
+                    width: 80px;
+                    height: 80px;
                     margin-bottom: 5px;
                 }
                 & span,

@@ -56,10 +56,10 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, auth, loading }) => {
                             </div> */}
                         </div>
                         <div className="header__teacher">
-                            <div className="header__teacher-logo">
+                            {/* <div className="header__teacher-logo">
                                 <img src={Logo} alt='logo'></img>
-                            </div>
-                            <div className="header__teacher-indicator"></div>
+                            </div> */}
+                            {/* <div className="header__teacher-indicator"></div> */}
                             <div className="header__teacher-infor">
                                 {
                                     course.teacher && <div>
