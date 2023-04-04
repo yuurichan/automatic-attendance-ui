@@ -58,6 +58,11 @@ const transformDataToCsv = (lessonDetail: LessonDetail) => {
         `${lessonDetail?.lesson?.weekday}`,
     ];
 
+    const line4_5 = [
+        "Phòng học",
+        `${lessonDetail.lesson?.roomLocation ? lessonDetail.lesson?.roomLocation : "Buổi học chưa xác định phòng"}`,
+    ];
+
     const line5 = [
         "Giờ bắt đầu",
         `${dayjs(lessonDetail.lesson?.timeStart).format("hh:mm a")}`,
@@ -84,6 +89,7 @@ const transformDataToCsv = (lessonDetail: LessonDetail) => {
         line2,
         line3,
         line4,
+        line4_5,
         line5,
         line6,
         line7,
