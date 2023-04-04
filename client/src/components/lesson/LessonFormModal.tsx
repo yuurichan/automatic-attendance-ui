@@ -72,14 +72,14 @@ const LessonFormModal: React.FC<LessonFormModalProps> = ({ open, setOpen, onEdit
         timeEnd: new Date().toISOString(),
         desc: "",
         course: {},
-        weekday: "Thứ 2"
-
+        weekday: "Thứ 2",
+        roomLocation: ""
     }
 
 
     const [lesson, setLesson] = useState<Lesson>(initialLesson);
     const [lessonError, setLessonError] = useState<LessonError>(initialLessonError);
-    const { timeStart, timeEnd, course, desc, weekday } = lesson;
+    const { timeStart, timeEnd, course, desc, weekday, roomLocation } = lesson;
     const [loading, setLoading] = useState<boolean>(false);
     const [userCourse, setUserCourse] = useState<Course[]>([]);
 
@@ -319,6 +319,10 @@ const LessonFormModal: React.FC<LessonFormModalProps> = ({ open, setOpen, onEdit
                         <MenuItem value={"Thứ 7"} className={classes.MenuItem}>Thứ 7</MenuItem>
                         <MenuItem value={"Chủ nhật"} className={classes.MenuItem}>Chủ nhật</MenuItem>
                     </Select>
+                </div>
+                <div className='form-group'>
+                    <label htmlFor="roomLocation">Phòng học</label>
+                    <textarea id="roomLocation" name="roomLocation" rows={1} cols={10} onChange={handleChange} disabled={loading} value={roomLocation}>   </textarea>
                 </div>
                 <div className='form-group'>
                     <label htmlFor="desc">Mô tả buổi học</label>

@@ -206,6 +206,16 @@ const LessonDetail = () => {
               </div>
               <div className="infor__row">
                 {
+                  lessonDetailStore.loading ? <Skeleton className={classes.SkeletonInline} height={22} variant="text" width={100} />
+                    : <>
+                      <i className='bx bxs-door-open'></i>
+                      <span>Phòng học: {lessonDetailState?.lesson?.roomLocation ? lessonDetailState?.lesson?.roomLocation : "Chưa xác định"}</span>
+                    </>
+                }
+
+              </div>
+              <div className="infor__row">
+                {
                   lessonDetailStore.loading ? <Skeleton className={classes.SkeletonInline} height={22} variant="text" width={180} />
                     : <>
                       <i className='bx bxs-calendar-minus'></i>

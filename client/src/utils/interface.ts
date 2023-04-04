@@ -104,6 +104,7 @@ export interface Lesson {
     timeEnd?: string
     desc?: string
     weekday?: string
+    roomLocation?: string
     teacher?: User
     createdAt?: string
 }

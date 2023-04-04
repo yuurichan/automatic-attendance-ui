@@ -105,6 +105,10 @@ const LessonCard: React.FC<LessonCardProps> = ({ auth, lesson, addStudentClass }
           <span>{lesson.weekday}</span>
         </div>
         <div>
+          <i className='bx bxs-door-open'></i>
+          <span>Phòng học: {lesson.roomLocation ? lesson.roomLocation : "Chưa xác định"}</span>
+        </div>
+        <div>
           <i className='bx bxs-time'></i>
           <span>Thời gian bắt đầu: {dayjs(lesson.timeStart).format("hh:mm a")}</span>
         </div>
