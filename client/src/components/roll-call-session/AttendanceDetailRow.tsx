@@ -78,7 +78,7 @@ const AttendanceDetailRow: React.FC<AttendanceDetailRowProps> = ({ attendance, d
 
         } catch (error: any) {
             setLoadingAttendace(false)
-            dispatch({ type: ALERT, payload: { error: error.response.dât.msg } })
+            dispatch({ type: ALERT, payload: { error: error.response.data.msg } })
         }
     }
 

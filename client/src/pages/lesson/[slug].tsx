@@ -389,6 +389,7 @@ const LessonDetail = () => {
               <TableHead>
                 <TableRow>
                   <TableCell className={classes.TableCellHead} align="left">Mô tả</TableCell>
+                  <TableCell className={classes.TableCellHead} align="center">Tổng số</TableCell>
                   <TableCell className={classes.TableCellHead} align="center">Có mặt</TableCell>
                   <TableCell className={classes.TableCellHead} align="center">Vắng</TableCell>
                   <TableCell className={classes.TableCellHead} align="center">Kết thúc</TableCell>
@@ -415,6 +416,14 @@ const LessonDetail = () => {
                               </p>
                             </div>
 
+                          </TableCell>
+                          <TableCell align="center">
+                            <span className='table__absent'>
+                              {
+                                // Tổng số học sinh <=> Số các attendanceDetails hiện có trong rcSessDetail
+                                rollCallsessDetail.attendanceDetails ? rollCallsessDetail.attendanceDetails.length : 0
+                              }
+                            </span>
                           </TableCell>
                           <TableCell align="center">
                             <span className='table__absent'>
