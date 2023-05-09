@@ -282,7 +282,7 @@ const CourseBody = () => {
                     </div>
                     {/* Can be removed from rendering with same logic */}
                     {<div className="form-group">
-                        <input placeholder="Tìm kiếm theo giáo viên..." disabled={!(auth.user?.role === 'admin' || auth.user?.role === 'manager')} type="text" onChange={handleSearchByCourseTeacher} value={searchByNameTeacher} />
+                        <input placeholder="Tìm kiếm theo giảng viên..." disabled={!(auth.user?.role === 'admin' || auth.user?.role === 'manager')} type="text" onChange={handleSearchByCourseTeacher} value={searchByNameTeacher} />
                         <i className='bx bx-search'></i>
                     </div>}
                 </form>
