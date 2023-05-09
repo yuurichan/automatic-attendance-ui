@@ -111,29 +111,33 @@ const RollCallSessionDetail = () => {
     const refCamera = useRef<any>(null);
     const refCanvas = useRef<any>(null);
 
-    console.log('detailRollCallSession: ', detailRollCallSession);
+    const [note, setNote] = useState<string>('');
+
+    //console.log('detailRollCallSession: ', detailRollCallSession);
     // this might be used to refresh and/or re-render components but it doesn't seem to work
     // lí do có thể 2 luồng API đưa chi tiết và nhận chi tiết điểm danh chạy song song và khác nhau => trang ko nhận ra và rerender đc
+    const handleGetDetailRollCallSession = async () => {
+        dispatch(getDetailRollCallSession(detailRollCallSessionStore, slug, auth))
+    }
     useEffect(() => {
-        console.log('This is triggered');
+        console.log('This is triggered!!!!!!!');
         if (slug) {
-            const handleGetDetailRollCallSession = async () => {
-                dispatch(getDetailRollCallSession(detailRollCallSessionStore, slug, auth))
-            }
             handleGetDetailRollCallSession()
-            console.log('Get Detail');
+            console.log('Get Detail--------');
         }
         
 
         detailRollCallSessionStore.rollCallSessions?.filter(rollCallSession => {
             if (rollCallSession._id === slug) {
                 setDetailRollCallSession({...rollCallSession})
+                //setDetailRollCallSession(rollCallSession)
                 setComment(rollCallSession.comment)
             }
             console.log('Get Session');
+            console.log('detailRollCallSession: ', detailRollCallSession);
         })
-
-    }, [slug, auth, detailRollCallSessionStore.rollCallSessions, rerender])
+    }, [slug, detailRollCallSessionStore.rollCallSessions, rerender])
+    //}, [slug, auth, detailRollCallSessionStore.rollCallSessions, rerender])
 
     // Load models
     useEffect(() => {
@@ -342,46 +346,56 @@ const RollCallSessionDetail = () => {
                     const face = faceMatcher.findBestMatch(detection.descriptor)
 
                     //let attendance: any;
+                    //let newAttendanceDetails2: Attendance[] = [] as Attendance[];
                     let attendance : Attendance = {} as Attendance;
                     detailRollCallSession.attendanceDetails?.forEach(_attendance => {
                         if (_attendance.student?.studentCode === face.label) {
                             attendance = _attendance;
+                            
                         }
                     })
+                    // if (newAttendanceDetails2.length == 0) {
+                    //     newAttendanceDetails2 = detailRollCallSession.attendanceDetails?.map((_attendanceDetail) => {
+                    //         //console.log('_attendanceDetail: ', _attendanceDetail);
+                    //         return _attendanceDetail._id === attendance._id ? { ...attendance, absent: false } : _attendanceDetail
+                    //     })!
+                    //     console.log(newAttendanceDetails2)
+                    // }
+                    // else {
+                    //     newAttendanceDetails2 = newAttendanceDetails2?.map((_attendanceDetail) => {
+                    //         //console.log('_attendanceDetail: ', _attendanceDetail);
+                    //         return _attendanceDetail._id === attendance._id ? { ...attendance, absent: false } : _attendanceDetail
+                    //     })!
+                    //     console.log(newAttendanceDetails2)
+                    // }
                     // This one takes singular values, so it only updates for one student at a time?
 
                     // Is it singular or multiples because there's some sort of a visual error with this one as far as I'm concerned
                     // It affects the checkmark and the counts as well, visually speaking
                     // It updates every 200ms, the data is saved but the checkmarks aren't displaying correctly (as in it only renders the current student being checked?)
                     // Only after refreshing the page do the checkmarks work correctly
-                    console.log(attendance)
+                    console.log('Detected: ', attendance._id);
                     if (attendance) {
                         if (attendance.absent === true) {
                             const data = {
                                 absent: false
                             }
-
+    
                             await putAPI(`attendance_detail/${attendance._id}`, data, auth.access_token)
                             dispatch({ type: ALERT, payload: { success: "Điểm danh thành công" } })
-
+    
                             const newAttendanceDetails = detailRollCallSession.attendanceDetails?.map((_attendanceDetail) => {
                                 //console.log('_attendanceDetail: ', _attendanceDetail);
-                                return _attendanceDetail._id === attendance._id ? { ...attendance, absent: !attendance.absent } : _attendanceDetail
+                                return _attendanceDetail._id === attendance._id ? { ...attendance, absent: false } : _attendanceDetail
                             })
-
+    
                             console.log('newAttendanceDetails: ', newAttendanceDetails);
-                            dispatch(updateAttendanceDetail({ ...detailRollCallSession, attendanceDetails: newAttendanceDetails }, auth, detailRollCallSessionStore, lessonDetail))
-                            setDetailRollCallSession({
-                                ...detailRollCallSession,
-                                attendanceDetails : newAttendanceDetails
-                            })
-
+                            dispatch(updateAttendanceDetail({ ...detailRollCallSession.attendanceDetails, ...detailRollCallSession, attendanceDetails: newAttendanceDetails }, auth, detailRollCallSessionStore, lessonDetail))
                             
-                            
-                            rerender === 0 ? setRender(1) : setRender(0)
                         } else {
                             return;
                         }
+                        rerender==0 ? setRender(1) : setRender(0);
                         // attendance obj needs to be flushed and made anew?
                         // if (slug) {
                         //     const handleGetDetailRollCallSession = async () => {
@@ -397,7 +411,17 @@ const RollCallSessionDetail = () => {
                         //     }
                         //     console.log('Get Session 2');
                         // })
+                        //dispatch(updateAttendanceDetail({ ...detailRollCallSession.attendanceDetails, ...detailRollCallSession, attendanceDetails: newAttendanceDetails2 }, auth, detailRollCallSessionStore, lessonDetail))
                     }
+                    
+                    //handleGetDetailRollCallSession();
+                    // detailRollCallSessionStore.rollCallSessions?.filter(rollCallSession => {
+                    //     if (rollCallSession._id === slug) {
+                    //         setDetailRollCallSession({...rollCallSession})
+                    //         //setDetailRollCallSession(rollCallSession)
+                    //         setComment(rollCallSession.comment)
+                    //     }
+                    // });
 
                 }
             }, 200)
@@ -712,6 +736,7 @@ const RollCallSessionDetail = () => {
                                         <TableCell className={classes.TableCellHead} align="left">Ngày</TableCell>
                                         <TableCell className={classes.TableCellHead} align="left">Học phần</TableCell>
                                         <TableCell className={classes.TableCellHead} align="left">Điểm danh</TableCell>
+                                        <TableCell className={classes.TableCellHead} align="left">Ghi chú</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -759,7 +784,14 @@ const RollCallSessionDetail = () => {
                                                         }
                                                     </FormGroup>
                                                 </TableCell>
-
+                                                <TableCell className={classes.TableCellBody} align="left">
+                                                    <form className="detail__row-note">
+                                                        <div className='note__group'>
+                                                            <textarea disabled={true} value={attendance.note} rows={3} cols={20}>
+                                                            </textarea>
+                                                        </div>
+                                                    </form>
+                                                </TableCell>
                                             </TableRow>
                                         })
                                     }

@@ -136,21 +136,21 @@ const StudentFormModal: React.FC<StudentFormModalProps> = ({ open, hanldeSetOpen
                 </Box>
                 <form className="student__form" onSubmit={handleSubmit}>
                     <div className="form__group">
-                        <label htmlFor="name">Họ và tên</label>
+                        <label htmlFor="name">Họ và tên *</label>
                         <input type="text" name="name" id="name" disabled={loading} value={name} onChange={hanldeChange} />
                         {
                             errorStudent?.errorName && <small className="text-error">{errorStudent?.errorName}</small>
                         }
                     </div>
                     <div className="form__group">
-                        <label htmlFor="name">Mã số sinh viên</label>
+                        <label htmlFor="name">Mã số sinh viên *</label>
                         <input type="text" name="studentCode" id="studentCode" disabled={loading} value={studentCode} onChange={hanldeChange} />
                         {
                             errorStudent?.errorStudentCode && <small className="text-error">{errorStudent?.errorStudentCode}</small>
                         }
                     </div>
                     <div className="form__group">
-                        <label htmlFor="name">Giới tính</label>
+                        <label htmlFor="name">Giới tính *</label>
                         <RadioGroup
                             row
                             aria-labelledby="demo-row-radio-buttons-group-label"
